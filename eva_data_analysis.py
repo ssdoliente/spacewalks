@@ -8,7 +8,7 @@ input_file = open('./eva-data.json', 'r')
 output_file = open('./eva-data.csv','w')
 graph_file = './cumulative_eva_graph.png'
 
-fieldnames = ("EVA #", "Country", "Crew    ", "Vehicle", "Date", "Duration", "Purpose")
+
 
 data=[]
 
