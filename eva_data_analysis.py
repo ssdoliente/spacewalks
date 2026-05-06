@@ -17,6 +17,17 @@ def write_dataframe_to_csv(df, output_file):
     # Save dataframe to CSV file for later analysis
     df.to_csv(output_file, index=False, encoding='utf-8')
 
+def plot_cumulative_time_in_space(df, graph_file):
+    # Plot cumulative time spent in space over years
+    print(f'Plotting cumulative spacewalk duration and saving to {graph_file}')
+    df['duration_hours'] = df['duration'].str.split(":").apply(lambda x: int(x[0]) + int(x[1])/60)
+    df['cumulative_time'] = df['duration_hours'].cumsum()
+    plt.plot(df['date'], df['cumulative_time'], 'ko-')
+    plt.xlabel('Year')
+    plt.ylabel('Total time spent in space to date (hours)')
+    plt.tight_layout()
+    plt.savefig(graph_file)
+    plt.show()
 
 # Main code
 
@@ -36,14 +47,6 @@ write_dataframe_to_csv(eva_data, output_file)
 eva_data.sort_values('date', inplace=True)
 
 # Plot cumulative time spent in space over years
-print(f'Plotting cumulative spacewalk duration and saving to {graph_file}')
-eva_data['duration_hours'] = eva_data['duration'].str.split(":").apply(lambda x: int(x[0]) + int(x[1])/60)
-eva_data['cumulative_time'] = eva_data['duration_hours'].cumsum()
-plt.plot(eva_data['date'], eva_data['cumulative_time'], 'ko-')
-plt.xlabel('Year')
-plt.ylabel('Total time spent in space to date (hours)')
-plt.tight_layout()
-plt.savefig(graph_file)
-plt.show()
+plot_cumulative_time_in_space(eva_data, graph_file)
 
 print("--END--")
