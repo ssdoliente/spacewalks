@@ -17,18 +17,16 @@ def test_text_to_duration_integer():
     assert text_to_duration("10:00") == 10.0
 
 @pytest.mark.parametrize("input_value, expected_result", [
-    ("Valentina Tereshkova;", 1)
+    ("Valentina Tereshkova;", 1),
     ("Judith Resnik; Sally Ride;", 2)
-])                         
+])                     
 def test_calculate_crew_size(input_value, expected_result):
     """
     Test that calculate_crew_size returns expected ground truth values
     for typical crew values
     """
-    
     actual_result =  calculate_crew_size(input_value)
     assert actual_result == expected_result
-
 
 def test_calculate_crew_size_edge_cases():
     """
